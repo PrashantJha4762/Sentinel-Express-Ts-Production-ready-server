@@ -1,9 +1,9 @@
 import express from 'express'
 import { serverconfig } from './config';
-import pinghandler from './controllers/pinghandler';
+import v1router from './routes/v1/indexrouter';
 const app=express();
-
-app.get('/ping',pinghandler)
+app.use(express.json());
+app.use('/api/v1',v1router);
 app.listen(serverconfig.port,()=>{
     console.log(`Server is running at ${serverconfig.port}`);
 })
