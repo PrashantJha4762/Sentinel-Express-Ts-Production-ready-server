@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from 'express'
 import {ZodObject} from 'zod'
+import logger from '../config/logger.config';
 export const validaterequestbody=(schema:ZodObject<any>)=>{
     return async (req:Request,res:Response,next:NextFunction)=>{
         try{
-            console.log("validating request body");
+            logger.info("validating request body");
             await schema.parseAsync(req.body)
-            console.log("request body is valid");
+            logger.info("request body is valid");
             next();
         }
         catch(error){
-            console.log("request body is invalid");
+            logger.info("request body is invalid");
             res.status(400).json({
                 message:"Invalid request body",
                 success:false,
@@ -21,13 +22,13 @@ export const validaterequestbody=(schema:ZodObject<any>)=>{
 export const validaterequestquery=(schema:ZodObject<any>)=>{
     return async (req:Request,res:Response,next:NextFunction)=>{
         try{
-            console.log("validating request query");
+            logger.info("validating request query");
             await schema.parseAsync(req.query)
-            console.log("request query is valid");
+            logger.info("request query is valid");
             next();
         }
         catch(error){
-            console.log("request query is invalid");
+            logger.info("request query is invalid");
             res.status(400).json({
                 message:"Invalid request query",
                 success:false,
